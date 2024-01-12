@@ -43,6 +43,7 @@ const SignupForm = () => {
       console.log(user);
       Auth.login(token);
       */
+      console.log("Before User added:", userFormData);
       const { data } = await addUser({
         variables: { ...userFormData },
       });

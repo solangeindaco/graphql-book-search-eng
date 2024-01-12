@@ -13,6 +13,7 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
+      console.log('LLegue al addUser', username, email, password);
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
@@ -34,6 +35,28 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    saveBook: async (parent, bookContent, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedBooks: bookContent } },
+          { new: true, runValidators: true }
+        );
+        return updatedUser;
+      }
+      throw AuthenticationError('You need to be logged in!');
+    },
+    removeBook: async (parent, { bookId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedBooks: { bookId: bookId } } },
+          { new: true }
+        );
+        return updatedUser;
+      }
+      throw AuthenticationError;
     },
   },
 };
