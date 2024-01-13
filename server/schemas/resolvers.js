@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Book } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -36,7 +36,14 @@ const resolvers = {
 
       return { token, user };
     },
-    saveBook: async (parent, bookContent, context) => {
+    saveBook: async (parent, {authors, description, bookId, image, link, title}, context) => {
+      const bookContent = {authors,
+        description,
+        bookId,
+        image,
+        link,
+        title};
+      console.log('LLegue al saveBook', bookContent);
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
