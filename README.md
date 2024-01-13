@@ -44,7 +44,7 @@ To refactor this web application, I used the following tutorials and libraries:
     - Apollo: https://www.apollographql.com/docs/graphos/explorer/                  
     - GraphQL: https://graphql.org/learn/queries/                   
     - Authentication: https://www.apollographql.com/docs/react/networking/authentication/       
-    - Bootstrap: https://getbootstrap.com/          
+    - Render: https://coding-boot-camp.github.io/full-stack/mongodb/deploy-with-render-and-mongodb-atlas         
                                                                            
 
 ## License
