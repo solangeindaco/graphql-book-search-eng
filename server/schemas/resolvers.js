@@ -43,7 +43,7 @@ const resolvers = {
         image,
         link,
         title};
-      console.log('LLegue al saveBook', bookContent);
+      
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },

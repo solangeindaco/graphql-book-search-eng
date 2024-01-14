@@ -57,6 +57,7 @@ const SavedBooks = () => {
       });
     } catch (err) {
       console.error(err);
+      console.log(err.networkError.result.errors);
     }
     //setUserData(updatedUser);
     // upon success, remove book's id from localStorage
