@@ -7,29 +7,27 @@ import {
 } from 'react-bootstrap';
 
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME } from '../utils/queries';
+import { GET_ME, QUERY_USER} from '../utils/queries';
 import { REMOVE_BOOK } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-  //const [userData, setUserData] = useState({});
-
-  // use this to determine if `useEffect()` hook needs to run again
-  //const userDataLength = Object.keys(userData).length;
 
   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
- // const { username: userParam } = useParams();
+ 
+  const { username: userParam } = useParams();
+ console.log('llegue al saved books');
+ const { loading, data } = useQuery(userParam ? QUERY_USER : GET_ME, {
+  variables: { username: userParam },
+});
 
-  const { loading, data } = useQuery( GET_ME);
+  const userData = data?.me || data?.user || {};
 
-  const userData = data?.me || {};
-
- console.log(userData);
-
-  const [removeBook, { error }] = useMutation
+  const [removeBook, { error}] = useMutation
     (REMOVE_BOOK, {
       refetchQueries: [
         GET_ME,
@@ -51,7 +49,7 @@ const SavedBooks = () => {
       });
     } catch (err) {
       console.error(err);
-      console.log(err.networkError.result.errors);
+      console.log(err.networkError.result.errors );
     }
     //setUserData(updatedUser);
     // upon success, remove book's id from localStorage
