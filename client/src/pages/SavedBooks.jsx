@@ -15,17 +15,13 @@ import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-
+  const { username: userParam } = useParams();
+  console.log('useParams', userParam);
   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
- 
-  const { username: userParam } = useParams();
- console.log('llegue al saved books');
- const { loading, data } = useQuery(userParam ? QUERY_USER : GET_ME, {
-  variables: { username: userParam },
-});
+  const { loading, data } = useQuery(GET_ME);
 
-  const userData = data?.me || data?.user || {};
+  let userData = data?.me || {};
 
   const [removeBook, { error}] = useMutation
     (REMOVE_BOOK, {
@@ -51,8 +47,6 @@ const SavedBooks = () => {
       console.error(err);
       console.log(err.networkError.result.errors );
     }
-    //setUserData(updatedUser);
-    // upon success, remove book's id from localStorage
     removeBookId(bookId);
   };
 
