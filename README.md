@@ -17,7 +17,7 @@ I learn:
 ## Installation
 
 Repository URL: https://github.com/solangeindaco/graphql-book-search-eng   
-Deployed application: https://solange-indaco-porfolio.netlify.app/   
+Deployed application: https://graphql-book-search-eng.onrender.com/   
 
 ## Usage
 
